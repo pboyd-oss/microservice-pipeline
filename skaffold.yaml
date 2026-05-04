@@ -15,7 +15,7 @@ build:
   cluster:
     namespace: jenkins
     dockerConfig:
-      path: /tmp/kaniko-config.json
+      secretName: gitea-docker-cfg
 profiles:
   - name: local
     build:
