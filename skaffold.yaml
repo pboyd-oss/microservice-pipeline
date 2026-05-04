@@ -4,11 +4,11 @@ metadata:
   name: microservice-pipeline
 build:
   artifacts:
-    - image: REGISTRY_PLACEHOLDER/auth-api
+    - image: gitea.tuxgrid.com/pboyd/auth-api
       context: auth-api
       kaniko:
         dockerfile: Dockerfile
-    - image: REGISTRY_PLACEHOLDER/data-api
+    - image: gitea.tuxgrid.com/pboyd/data-api
       context: data-api
       kaniko:
         dockerfile: Dockerfile
@@ -17,15 +17,13 @@ build:
     namespace: jenkins
 profiles:
   - name: local
-    # Uses Kaniko against your local cluster (minikube/kind/k3s).
-    # Run: skaffold dev --profile local
     build:
       artifacts:
-        - image: REGISTRY_PLACEHOLDER/auth-api
+        - image: gitea.tuxgrid.com/pboyd/auth-api
           context: auth-api
           kaniko:
             dockerfile: Dockerfile
-        - image: REGISTRY_PLACEHOLDER/data-api
+        - image: gitea.tuxgrid.com/pboyd/data-api
           context: data-api
           kaniko:
             dockerfile: Dockerfile
