@@ -13,7 +13,6 @@ build:
       kaniko:
         dockerfile: Dockerfile
   cluster:
-    pullSecretName: registry-credentials
     namespace: jenkins
 profiles:
   - name: local
@@ -28,7 +27,6 @@ profiles:
           kaniko:
             dockerfile: Dockerfile
       cluster:
-        pullSecretName: registry-credentials
         namespace: default
     manifests:
       kustomize:
