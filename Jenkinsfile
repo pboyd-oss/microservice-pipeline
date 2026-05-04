@@ -1,32 +1,14 @@
 @Library('jenkins-library') _
 
-pipeline {
-    agent {
-        kubernetes {
-            inheritFrom 'skaffold'
-        }
+microservicePipeline(
+    environment: branchToEnvironment(env.BRANCH_NAME),
+
+    test: {
+        runTests(services: ['auth-api', 'data-api'])
+    },
+
+    build: {
+        buildImage(image: 'REGISTRY_PLACEHOLDER/auth-api', context: 'auth-api')
+        buildImage(image: 'REGISTRY_PLACEHOLDER/data-api', context: 'data-api')
     }
-    stages {
-        stage('Checkout') {
-            steps {
-                checkoutApp()
-            }
-        }
-        stage('Test') {
-            steps {
-                runTests(services: ['auth-api', 'data-api'])
-            }
-        }
-        stage('Build') {
-            steps {
-                buildImage(image: 'REGISTRY_PLACEHOLDER/auth-api', context: 'auth-api')
-                buildImage(image: 'REGISTRY_PLACEHOLDER/data-api', context: 'data-api')
-            }
-        }
-        stage('Release') {
-            steps {
-                releaseApp(environment: branchToEnvironment(env.BRANCH_NAME))
-            }
-        }
-    }
-}
+)

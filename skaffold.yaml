@@ -16,6 +16,36 @@ build:
     pullSecretName: registry-credentials
     namespace: jenkins
 profiles:
+  - name: local
+    # Uses Kaniko against your local cluster (minikube/kind/k3s).
+    # Run: skaffold dev --profile local
+    build:
+      artifacts:
+        - image: REGISTRY_PLACEHOLDER/auth-api
+          context: auth-api
+          kaniko:
+            dockerfile: Dockerfile
+        - image: REGISTRY_PLACEHOLDER/data-api
+          context: data-api
+          kaniko:
+            dockerfile: Dockerfile
+      cluster:
+        pullSecretName: registry-credentials
+        namespace: default
+    manifests:
+      kustomize:
+        paths:
+          - auth-api/k8s/overlays/dev
+          - data-api/k8s/overlays/dev
+    portForward:
+      - resourceType: service
+        resourceName: auth-api
+        port: 8080
+        localPort: 8081
+      - resourceType: service
+        resourceName: data-api
+        port: 8080
+        localPort: 8082
   - name: dev
     manifests:
       kustomize:
