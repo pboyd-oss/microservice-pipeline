@@ -1,0 +1,38 @@
+apiVersion: skaffold/v4beta11
+kind: Config
+metadata:
+  name: microservice-pipeline
+build:
+  artifacts:
+    - image: REGISTRY_PLACEHOLDER/auth-api
+      context: auth-api
+      kaniko:
+        dockerfile: Dockerfile
+    - image: REGISTRY_PLACEHOLDER/data-api
+      context: data-api
+      kaniko:
+        dockerfile: Dockerfile
+  cluster:
+    pullSecretName: registry-credentials
+    namespace: jenkins
+profiles:
+  - name: dev
+    manifests:
+      kustomize:
+        paths:
+          - auth-api/k8s/overlays/dev
+          - data-api/k8s/overlays/dev
+  - name: test
+    manifests:
+      kustomize:
+        paths:
+          - auth-api/k8s/overlays/test
+          - data-api/k8s/overlays/test
+  - name: production
+    manifests:
+      kustomize:
+        paths:
+          - auth-api/k8s/overlays/production
+          - data-api/k8s/overlays/production
+deploy:
+  kubectl: {}
