@@ -4,5 +4,5 @@ namespace: dev
 resources:
   - ../../base
 images:
-  - name: REGISTRY_PLACEHOLDER/data-api
+  - name: gitea.tuxgrid.com/pboyd/data-api
     newTag: latest

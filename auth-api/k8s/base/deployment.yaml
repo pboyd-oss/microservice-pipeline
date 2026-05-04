@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: auth-api
-          image: REGISTRY_PLACEHOLDER/auth-api
+          image: gitea.tuxgrid.com/pboyd/auth-api
           ports:
             - containerPort: 8080
           readinessProbe:
