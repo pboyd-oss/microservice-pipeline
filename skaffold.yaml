@@ -14,7 +14,8 @@ build:
         dockerfile: Dockerfile
   cluster:
     namespace: jenkins
-    pullSecretName: kaniko-docker-config
+    dockerConfig:
+      path: /tmp/kaniko-config.json
 profiles:
   - name: local
     build:
