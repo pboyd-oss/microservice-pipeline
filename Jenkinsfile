@@ -8,7 +8,6 @@ microservicePipeline(
     },
 
     build: {
-        buildImage(image: 'REGISTRY_PLACEHOLDER/auth-api', context: 'auth-api')
-        buildImage(image: 'REGISTRY_PLACEHOLDER/data-api', context: 'data-api')
+        buildApp()
     }
 )
