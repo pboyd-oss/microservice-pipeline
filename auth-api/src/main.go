@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 
-	"auth-api/handlers"
+	"auth-api/src/handlers"
 )
 
 func main() {

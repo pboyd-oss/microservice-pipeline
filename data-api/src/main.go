@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 
-	"data-api/handlers"
+	"data-api/src/handlers"
 )
 
 func main() {
