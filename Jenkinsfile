@@ -4,7 +4,7 @@ pipeline {
     agent {
         kubernetes {
             cloud env.TUXGRID_BUILD_CLOUD
-            inheritFrom 'base'
+            inheritFrom 'platform-golang-builder'
         }
     }
 
